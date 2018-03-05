@@ -11,12 +11,24 @@ fetch('data/drive.json')
 
             const time = (timestamp - timeStart) / 100;
 
-            const filteredFrames = data.filter(t => t.s < time).slice(-1);
+            const filteredFrames = data.filter(t => t.s < time);
 
             if (filteredFrames.length > 0) {
 
-                speedElem.innerText = Math.round(filteredFrames[0].speed);
-                rpmElem.innerText = Math.round(filteredFrames[0].rpm);
+                const currentFrame = filteredFrames.slice(-1)[0];
+
+                if (currentFrame) {
+
+                    speedElem.innerText = Math.round(currentFrame.speed);
+                    rpmElem.innerText = Math.round(currentFrame.rpm);
+
+                }
+
+                if (filteredFrames.length == data.length) {
+
+                    timeStart = performance.now();
+
+                }
 
             }
 
