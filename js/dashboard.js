@@ -1,22 +1,22 @@
+const speedElem = document.querySelector('#speed');
+const rpmElem = document.querySelector('#rpm');
+
 let timeStart = performance.now();
 
 fetch('data/drive.json')
     .then(response => response.json())
     .then(data => {
 
-        const speed = document.querySelector('#speed');
-        const rpm = document.querySelector('#rpm');
-
         const updateDashboard = timestamp => {
 
             const time = (timestamp - timeStart) / 100;
 
-            const temp = data.filter(t => t.s < time).slice(-1);
+            const filteredFrames = data.filter(t => t.s < time).slice(-1);
 
-            if (temp.length) {
+            if (filteredFrames.length > 0) {
 
-                speed.innerText = Math.round(temp[0].speed);
-                rpm.innerText = Math.round(temp[0].rpm);
+                speedElem.innerText = Math.round(filteredFrames[0].speed);
+                rpmElem.innerText = Math.round(filteredFrames[0].rpm);
 
             }
 
