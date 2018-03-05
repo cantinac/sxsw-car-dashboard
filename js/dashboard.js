@@ -1,3 +1,5 @@
+let timeStart = performance.now();
+
 fetch('data/drive.json')
     .then(response => response.json())
     .then(data => {
@@ -5,11 +7,9 @@ fetch('data/drive.json')
         const speed = document.querySelector('#speed');
         const rpm = document.querySelector('#rpm');
 
-        let timeStart = performance.now();
-
         const updateDashboard = timestamp => {
 
-            const time = timeStart - (timestamp / 100);
+            const time = (timestamp - timeStart) / 100;
 
             const temp = data.filter(t => t.s < time).slice(-1);
 
