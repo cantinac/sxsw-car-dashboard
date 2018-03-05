@@ -9,7 +9,7 @@ fetch('data/drive.json')
 
         const updateDashboard = timestamp => {
 
-            const time = (timestamp - timeStart) / 100;
+            const time = (timestamp - timeStart) / 1000;
 
             const filteredFrames = data.filter(t => t.s < time);
 
